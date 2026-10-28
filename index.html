@@ -1,0 +1,126 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Yuly Sánchez Skin Beauty · Mi negocio</title>
+<!-- PWA ligera para "Agregar a pantalla de inicio" en iPad/iPhone · wil 2026-10-27 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Yuly Skin">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#a68a78">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icono180.png">
+<link rel="icon" href="icono192.png">
+<style>
+:root{--bg:#fbf6f3;--cd:#fff;--tx:#3d3029;--mu:#8a7a70;--ac:#a68a78;--ro:#f4dde0;--ln:#eadbd3;--ok:#4f8a5b;--bad:#b5495b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1f1a18;--cd:#2a2421;--tx:#f1e8e3;--mu:#b3a39a;--ro:#3b2e30;--ln:#3d3430;--ok:#7fc08c;--bad:#e58a9a}}
+:root[data-theme="dark"]{--bg:#1f1a18;--cd:#2a2421;--tx:#f1e8e3;--mu:#b3a39a;--ro:#3b2e30;--ln:#3d3430;--ok:#7fc08c;--bad:#e58a9a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font-family:Arial,Helvetica,sans-serif;padding-bottom:84px;max-width:560px;margin:auto}
+h1{font-size:18px;margin:14px 16px 0;color:var(--ac)}.sub{margin:2px 16px 8px;color:var(--mu);font-size:12px;font-style:italic}
+#v{padding:0 12px}.c{background:var(--cd);border:1px solid var(--ln);border-radius:14px;padding:12px;margin:10px 0}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:8px}.k{background:var(--ro);border-radius:12px;padding:10px}.k small{color:var(--mu);font-size:11px}.k b{display:block;font-size:16px;margin-top:2px}
+input,select,button{font:inherit;font-size:14px;padding:9px;border-radius:10px;border:1px solid var(--ln);background:var(--cd);color:var(--tx);width:100%;margin:3px 0}
+button{background:var(--ac);color:#fff;border:0;font-weight:bold;cursor:pointer}button.s{background:var(--ro);color:var(--tx);width:auto;padding:6px 10px;font-size:12px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}.seg button{width:auto;background:var(--ro);color:var(--tx);padding:7px 11px;font-size:12px}.seg button.on{background:var(--ac);color:#fff}
+.r{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--ln);font-size:13px}.r:last-child{border:0}.r small{color:var(--mu);display:block}
+.ok{color:var(--ok)}.bad{color:var(--bad)}.bar{height:8px;background:var(--ro);border-radius:6px;overflow:hidden;margin:6px 0}.bar i{display:block;height:100%;background:var(--ac)}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--cd);border-top:1px solid var(--ln);display:flex;padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));max-width:560px;margin:auto}
+nav button{background:none;color:var(--mu);font-size:10px;padding:6px 2px;margin:0;border-radius:8px}nav button.on{color:var(--ac);background:var(--ro)}
+.ch{display:flex;align-items:flex-end;gap:4px;height:70px}.ch div{flex:1;background:var(--ac);border-radius:3px 3px 0 0;min-height:2px}.ch+.ch{height:auto;margin-top:2px}.ch+.ch span{flex:1;text-align:center;font-size:9px;color:var(--mu)}
+</style></head><body>
+<h1>🌸 Yuly Sánchez by Skin Beauty</h1><div class="sub">"Cuidarte es mi arte" · Mi negocio</div>
+<div class="sub" id="cl"></div>
+<div id="v"></div>
+<nav id="n"></nav>
+<script>
+const DEF=[["Limpieza facial profunda",80000],["Limpieza facial premium",130000],["Sesión limpieza de acné",90000],["Limpieza peeling químico",140000],["Porcelanización (hidrafacial, PRP, Ping glow…)",180000],["Dermapen + pinglow",160000],["PDRN sesión con Dermapen",230000],["PDRN sesión en mesoterapia",280000],["Limpieza espalda",160000],["Plasma rico en plaquetas capilar",240000],["Masaje de relajación",100000],["Cera - Axilas",15000],["Cera - Bikini",25000],["Cera - Pierna",35000],["Cera - Completa",40000],["Acrocordones, verrugas (2 x)",15000]];
+let S;try{S=JSON.parse(localStorage.getItem("ysb"))}catch(e){}
+S=S||{regs:[],citas:[],deudas:[],metas:[]};S.jim=S.jim||[];S.svc=S.svc||DEF;
+let NUB={on:false,snd:null};// capa de sincronización con el servidor (wil 2026-10-27)
+const save=()=>{try{localStorage.setItem("ysb",JSON.stringify(S))}catch(e){}cs("💾 Guardado en este dispositivo · "+new Date().toLocaleTimeString("es-CO",{hour:"2-digit",minute:"2-digit"}))};/* modo sin servidor · wil 2026-10-27 */
+const cs=t=>{const e=document.getElementById("cl");if(e)e.textContent=t};
+const num=x=>+String(x).replace(/[^\d]/g,"")||0,er=t=>{const e=$("er");if(e)e.textContent=t};
+const $=i=>document.getElementById(i),m=n=>"$"+Math.round(n).toLocaleString("es-CO"),today=()=>new Date().toISOString().slice(0,10);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const sum=(a,f)=>a.filter(f).reduce((t,x)=>t+x.v,0),uid=()=>Date.now()+Math.random();
+let tab="res",ty="serv",mes=today().slice(0,7);
+const TN={res:"📊 Resumen",cit:"📅 Citas",reg:"💰 Registro",deu:"🧾 Deudas",aho:"🐷 Ahorros",jim:"🏍️ Jimmy Motos"};
+const TY={serv:"Servicio",prod:"Venta producto",gasto:"Gasto",deuda:"Pago deuda",ahorro:"Ahorro",pedido:"Pedidos",ingreso:"Ingreso manual"};
+const opts=(a,sel)=>a.map(x=>`<option ${x==sel?"selected":""}>${esc(x)}</option>`).join("");
+const svOpts=()=>S.svc.map(s=>`<option value="${s[1]}">${esc(s[0])}</option>`).join("");
+function go(t){tab=t;draw()}
+function draw(){
+$("n").innerHTML=Object.keys(TN).map(k=>`<button class="${k==tab?"on":""}" style="flex:1" onclick="go('${k}')">${TN[k]}</button>`).join("");
+$("v").innerHTML=({res,cit,reg,deu,aho,jim})[tab]();try{bkTxt()}catch(e){};window.scrollTo(0,0)}
+const ev=()=>S.regs.flatMap(r=>(r.t=="serv"||r.t=="prod"||r.t=="gasto")&&r.ab?r.ab.map(a=>({t:r.t,f:a.f,v:a.v})):[r]);
+const sal=r=>r.ab?r.v-r.ab.reduce((t,a)=>t+a.v,0):0;
+const abos=k=>S.regs.filter(r=>r.t=="prod"&&r.ab&&(r.ab.length>1||r.ab[0].v<r.v)).reduce((t,r)=>t+r.ab.filter(a=>a.f.startsWith(k)).reduce((u,a)=>u+a.v,0),0);
+function res(){
+const R=ev().filter(r=>r.f.startsWith(mes)),t=x=>sum(R,r=>r.t==x);
+const jm=sum(S.jim.filter(r=>r.f.startsWith(mes)),()=>1),ab=abos(mes),ing=t("serv")+jm+t("ingreso")+ab,q=ing-t("gasto")-t("deuda")-t("ahorro");
+const na=S.citas.filter(c=>c.ok&&c.f.startsWith(mes)).length,y=mes.slice(0,4);
+const mo=[...Array(12)].map((_,i)=>(k=>sum(ev(),r=>r.f.startsWith(k)&&(r.t=="serv"||r.t=="ingreso"))+sum(S.jim,r=>r.f.startsWith(k))+abos(k))(y+"-"+String(i+1).padStart(2,"0"))),mx=Math.max(...mo,1);
+return `<div class="c"><input type="month" value="${mes}" onchange="mes=this.value||mes;draw()">
+<div class="g"><div class="k"><small>Ingresos (servicios + Jimmy + manual + abonos)</small><b>${m(ing)}</b></div><div class="k"><small>Te queda</small><b class="${q<0?"bad":"ok"}">${m(q)}</b></div>
+<div class="k"><small>Servicios (${na} citas)</small><b>${m(t("serv"))}</b></div><div class="k"><small>Venta de productos (cobrado)</small><b>${m(t("prod"))}</b></div>
+<div class="k"><small>Gastos</small><b>${m(t("gasto"))}</b></div><div class="k"><small>Deudas + ahorro</small><b>${m(t("deuda"))} · ${m(t("ahorro"))}</b></div>
+<div class="k"><small>Ganancia productos</small><b>${m(sum(S.regs.filter(r=>r.t=="prod"&&r.f.startsWith(mes)),()=>1)-S.regs.filter(r=>r.t=="prod"&&r.f.startsWith(mes)).reduce((t,r)=>t+(r.c||0),0))}</b></div><div class="k"><small>Por cobrar (abonos)</small><b class="bad">${m(S.regs.reduce((t,r)=>t+(r.t=="gasto"?0:Math.max(sal(r),0)),0))}</b></div><div class="k" style="grid-column:span 2"><small>Por pagar (gastos con abono)</small><b class="bad">${m(S.regs.reduce((t,r)=>t+(r.t=="gasto"?Math.max(sal(r),0):0),0))}</b></div>
+<div class="k" style="grid-column:span 2"><small>Abonos recibidos de ventas (incluidos en ingresos)</small><b class="ok">${m(ab)}</b></div>
+<div class="k" style="grid-column:span 2"><small>🏍️ Jimmy Motos (incluido en ingresos) · ${S.jim.filter(r=>r.f.startsWith(mes)).length} días</small><b>${m(sum(S.jim.filter(r=>r.f.startsWith(mes)),()=>1))}</b></div></div></div>
+<div class="c"><b>➕ Ingreso manual</b><input id="mn" placeholder="Concepto (ej. Comisión, regalo…)"><input id="mv" type="text" inputmode="numeric" placeholder="Valor"><input id="mf" type="date" value="${today()}"><small id="er" class="bad" style="display:block;font-weight:bold"></small><button onclick="addMan()">Agregar ingreso</button>${S.regs.filter(r=>r.t=="ingreso"&&r.f.startsWith(mes)).map(r=>`<div class="r"><div>${esc(r.d)}<small>${r.f}</small></div><div class="ok">+${m(r.v)} <button class="s" onclick="delReg(${r.id})">✕</button></div></div>`).join("")}</div>
+<div class="c"><b style="font-size:13px">Ingresos ${y}</b><div class="ch" style="margin-top:8px">${mo.map(v=>`<div style="height:${v/mx*100}%"></div>`).join("")}</div><div class="ch">${"ENFMAMJJASOND".split("").map(l=>`<span>${l}</span>`).join("")}</div></div><div class="c"><small id="bk" style="display:block;margin-bottom:6px">…</small><button onclick="resp()">⬇ Exportar respaldo de mis datos</button> <button class="s" onclick="document.getElementById('imf').click()">⬆ Importar respaldo</button><input id="imf" type="file" accept="application/json,.json" style="display:none" onchange="impor()"><small style="display:block;margin-top:6px;opacity:.6">Versión de tu app: 1.0 · 27 oct 2026</small></div>`}
+function addMan(){const v=num($("mv").value),d=$("mn").value.trim();if(!v||!d){er(!d?"Escribe el concepto":"Escribe el valor");return}S.regs.push({id:uid(),f:$("mf").value||today(),t:"ingreso",d,v});save();draw()}
+function cit(){
+const L=[...S.citas].sort((a,b)=>(a.f+a.h).localeCompare(b.f+b.h));
+return `<div class="c"><b>Nueva cita</b><input type="date" id="cf" value="${today()}"><input type="time" id="ch" value="10:00"><input id="cn" placeholder="Nombre de la clienta"><select id="cs">${svOpts()}</select><input id="ca" type="text" inputmode="numeric" placeholder="Abono (opcional)"><button onclick="addCit()">Agendar</button></div>
+<div class="c">${L.length?L.map(c=>`<div class="r" style="${c.ok?"opacity:.5":""}"><div>${esc(c.n)}<small>${c.f} ${c.h} · ${esc(c.s)}</small><small>${m(c.p)} · abono ${m(c.a)} · debe ${m(c.p-c.a)}</small></div><div>${c.ok?"✔":`<button class="s" onclick="cobrar(${c.id})">Cobrar</button>`} <button class="s" onclick="delCit(${c.id})">✕</button></div></div>`).join(""):"<small>Aún no hay citas.</small>"}</div>`}
+function addCit(){const s=$("cs"),n=$("cn").value.trim();if(!n)return;S.citas.push({id:uid(),f:$("cf").value||today(),h:$("ch").value,n,s:s.options[s.selectedIndex].text,p:+s.value,a:num($("ca").value)||0,ok:0});save();draw()}
+function cobrar(i){const c=S.citas.find(x=>x.id==i);c.ok=1;S.regs.push({id:uid(),f:c.f,t:"serv",d:c.s+" · "+c.n,v:c.p});save();draw()}
+function delCit(i){S.citas=S.citas.filter(x=>x.id!=i);save();draw()}
+function reg(){
+const det=ty=="serv"?`<select id="rd" onchange="$('rv').value=this.value">${svOpts()}</select>`:ty=="deuda"?`<select id="rd">${S.regs.filter(r=>r.t=="gasto"&&sal(r)>0).map(r=>`<option value="g:${r.id}">${esc(r.d)} · resta ${m(sal(r))}</option>`).join("")}${S.deudas.map(d=>`<option value="d:${esc(d.n)}">${esc(d.n)} (deuda)</option>`).join("")}</select><input id="rn" placeholder="✏️ Otra deuda: escribe aquí el nombre">`:ty=="ahorro"?`<select id="rd">${opts(S.metas.map(d=>d.n))}</select>`:`<input id="rd" placeholder="${ty=="prod"?"Producto (Avène, Magistral, jabón…)":ty=="pedido"?"Producto":"Detalle del gasto"}">`;
+const sp=ty=="serv"||ty=="prod",L=S.regs.filter(r=>ty=="deuda"?r.t=="deuda"||r.t=="gasto":r.t==ty).sort((a,b)=>b.f.localeCompare(a.f)).slice(0,40);
+return `<div class="c"><div class="seg">${Object.keys(TY).filter(k=>!["deuda","ahorro","ingreso"].includes(k)).map(k=>`<button class="${k==ty?"on":""}" onclick="ty='${k}';draw()">${TY[k]}</button>`).join("")}</div>
+<input type="date" id="rf" value="${today()}">${ty=="pedido"?`<input id="rc" placeholder="Nombre de quien pide">`:""}${det}${ty=="prod"?`<input id="rk" type="text" inputmode="numeric" placeholder="Valor de compra">`:""}<input id="rv" oninput="gan()" type="text" inputmode="numeric" placeholder="${ty=="prod"?"Valor de venta":ty=="pedido"?"Valor":"Monto"}" value="${ty=="serv"?S.svc[0][1]:""}">${ty=="pedido"?`<input id="rvt" oninput="gan()" type="text" inputmode="numeric" placeholder="Venta"><input id="rg" type="text" inputmode="numeric" placeholder="Ganancia (se calcula sola)">`:""}
+${sp?`<input id="rc" placeholder="Clienta (opcional)">`:""}${sp||ty=="gasto"?`<small>¿${ty=="gasto"?"Dejaste":"Hizo"} abono? Si ${ty=="gasto"?"pagaste":"pagó"} todo, déjalo vacío</small><input id="ra" type="text" inputmode="numeric" placeholder="Valor del abono"><small>Fecha del abono</small><input type="date" id="rad" value="${today()}">`:""}<small id="er" class="bad" style="display:block;font-weight:bold;margin:4px 0"></small><button onclick="addReg()">Guardar</button></div>
+<div class="c"><b style="font-size:13px">Historial: ${TY[ty]}${ty=="deuda"?" y gastos":""}${L.length?" ("+L.length+")":""}</b>${L.length?L.map(r=>{const d=sal(r),sv=r.t=="serv"||r.t=="prod";return `<div class="r" style="flex-wrap:wrap;${d>0?"border-left:4px solid var(--bad);padding-left:8px":""}"><div>${esc(r.d)}<small>${r.f} · ${TY[r.t]}${r.cl?" · "+esc(r.cl):""}${r.t=="prod"?" · compra "+m(r.c||0)+" · gana "+m(r.v-(r.c||0)):""}${r.t=="pedido"?" · venta "+m(r.vt||0)+" · gana "+m(r.g||0):""}</small>${r.ab&&d>0?`<b class="bad" style="display:block;font-size:14px;margin-top:3px">⚠ Resta por pagar: ${m(d)}</b>`:r.ab?`<small class="ok">✔ Pagado completo</small>`:""}${r.ab&&(r.ab.length>1||d>0)?`<small>Abonos: ${r.ab.map(a=>a.f.slice(5)+" "+m(a.v)).join(" · ")}</small>`:""}</div><div class="${sv?"ok":r.t=="pedido"?"":"bad"}">${sv?"+":r.t=="pedido"?"":"−"}${m(r.v)} <button class="s" onclick="delReg(${r.id})">✕</button></div>${d>0?`<div style="width:100%;display:flex;gap:4px"><input id="ar${r.id}" type="text" inputmode="numeric" placeholder="Nuevo abono"><input id="ad${r.id}" type="date" value="${today()}"><button class="s" onclick="addAb(${r.id})">Abonar</button></div>`:""}</div>`}).join(""):`<small style="display:block;margin-top:6px">Aún no hay registros de ${TY[ty].toLowerCase()}.</small>`}</div>`}
+function addReg(){const v=num($("rv").value);let d=$("rd").value.trim();
+if(ty=="deuda"){const n=$("rn").value.trim(),f=$("rf").value||today();if(!v){er("Escribe el valor del pago");return}
+if(n)d=n;else if(d.startsWith("g:")){const r=S.regs.find(x=>x.id==d.slice(2));if(!r)return;r.ab.push({f,v});save();draw();return}else if(d.startsWith("d:"))d=d.slice(2);else{er("Elige una deuda de la lista o escribe el nombre en Otra deuda");return}}
+if(!v||!d){er(!v?"Escribe el valor":"Escribe el detalle");return}const o={id:uid(),f:$("rf").value||today(),t:ty,d,v};
+if(ty=="serv"||ty=="prod"||ty=="gasto"){if(ty!="gasto")o.cl=$("rc").value.trim();const a=num($("ra").value);o.ab=[a?{f:$("rad").value||o.f,v:a}:{f:o.f,v}]}
+if(ty=="pedido"){o.cl=$("rc").value.trim();o.vt=num($("rvt").value);const gv=$("rg").value;o.g=gv===""?o.vt-v:(+gv.replace(/[^\d-]/g,"")||0)}if(ty=="prod")o.c=num($("rk").value)||0;S.regs.push(o);save();draw()}
+function gan(){const t=$("rvt"),g=$("rg");if(!t||!g)return;g.value=t.value?num(t.value)-num($("rv").value):""}
+function addAb(i){const r=S.regs.find(x=>x.id==i),a=num($("ar"+i).value);if(!a)return;r.ab.push({f:$("ad"+i).value||today(),v:a});save();draw()}
+function delReg(i){S.regs=S.regs.filter(x=>x.id!=i);save();draw()}
+function lista(k,tp,nuevo,fn){
+return `<div class="c"><b>${nuevo}</b><input id="ln" placeholder="Nombre"><input id="lm" type="text" inputmode="numeric" placeholder="Monto">${k=="deudas"?`<input id="lc" type="text" inputmode="numeric" placeholder="Cuotas financiadas (opcional)"><small>Fecha de pago</small><input type="date" id="lf">`:""}<button onclick="addL('${k}')">Agregar</button></div>`+fn()}
+function addL(k){const n=$("ln").value.trim(),v=num($("lm").value);if(!n||!v)return;S[k].push({id:uid(),n,v,fp:($("lf")||{}).value||"",cu:num(($("lc")||{}).value)});save();draw()}
+function abonar(k,i,t){const n=S[k].find(x=>x.id==i).n,v=num($("ab"+i).value);if(!v)return;S.regs.push({id:uid(),f:(($("ad"+i)||{}).value||today()),t,d:n,v,q:num(($("aq"+i)||{}).value)});save();draw()}
+function delL(k,i){S[k]=S[k].filter(x=>x.id!=i);save();draw()}
+function deu(){return lista("deudas","deuda","Nueva deuda",()=>{
+const D=S.deudas.map(d=>({...d,s:d.v-sum(S.regs,r=>r.t=="deuda"&&r.d==d.n)})),a=D.filter(d=>d.s>0).sort((x,y)=>x.s-y.s)[0];
+return `<div class="c">${a?`<small>Bola de nieve · paga primero:</small><b style="display:block;color:var(--ac)">${esc(a.n)} (${m(a.s)})</b>`:"<small>Sin deudas pendientes 🎉</small>"}</div>`+D.map(d=>{const A=S.regs.filter(r=>r.t=="deuda"&&r.d==d.n).sort((x,y)=>x.f.localeCompare(y.f)),ve=d.fp&&d.s>0&&d.fp<today(),qc=A.reduce((t,r)=>t+(r.q||0),0);
+return `<div class="c"><div class="r"><b>${esc(d.n)}${a&&a.id==d.id?" 🎯":""}</b><button class="s" onclick="delL('deudas',${d.id})">✕</button></div><small>Debes ${m(Math.max(d.s,0))} de ${m(d.v)}</small>${d.cu||qc?`<b style="display:block;font-size:13px;margin-top:3px">🧾 Cuotas: ${qc} canceladas${d.cu?` de ${d.cu} financiadas · faltan ${Math.max(d.cu-qc,0)} · cuota ≈ ${m(d.v/d.cu)}`:""}</b>`:""}${d.fp?`<b class="${ve?"bad":""}" style="display:block;font-size:13px;margin-top:3px">📅 Fecha de pago: ${d.fp}${ve?" · ¡vencida!":""}</b>`:""}<div class="bar"><i style="width:${Math.min(100,(d.v-d.s)/d.v*100)}%"></i></div>
+<b style="font-size:12px">Abonos · ${m(d.v-d.s)}</b>${A.length?A.map(r=>`<div class="r"><small>${r.f}${r.q?" · "+r.q+(r.q>1?" cuotas":" cuota"):""}</small><div>${m(r.v)} <button class="s" onclick="delReg(${r.id})">✕</button></div></div>`).join(""):"<small style='display:block'>Aún sin abonos</small>"}
+<small style="display:block;margin-top:6px">Cuotas que cubre este abono</small><input id="aq${d.id}" type="text" inputmode="numeric" value="1"><small style="display:block">Nuevo abono y su fecha</small><div style="display:flex;gap:4px"><input id="ab${d.id}" type="text" inputmode="numeric" placeholder="Abono"><input id="ad${d.id}" type="date" value="${today()}"><button class="s" onclick="abonar('deudas',${d.id},'deuda')">Pagar</button></div></div>`}).join("")})}
+function aho(){return lista("metas","ahorro","Nueva meta de ahorro",()=>S.metas.map(d=>{const s=sum(S.regs,r=>r.t=="ahorro"&&r.d==d.n);return `<div class="c"><div class="r"><b>${esc(d.n)}</b><button class="s" onclick="delL('metas',${d.id})">✕</button></div><small>${m(s)} de ${m(d.v)} · ${Math.min(100,Math.round(s/d.v*100))}%</small><div class="bar"><i style="width:${Math.min(100,s/d.v*100)}%"></i></div><div style="display:flex;gap:6px"><input id="ab${d.id}" type="text" inputmode="numeric" placeholder="Ahorrar"><button class="s" style="width:90px" onclick="abonar('metas',${d.id},'ahorro')">Guardar</button></div></div>`}).join(""))}
+function hrs(e,s){if(!e||!s)return 0;const t=x=>{const a=x.split(":");return +a[0]*60+ +a[1]};let h=(t(s)-t(e))/60;return h<0?h+24:h}
+function jim(){const R=S.jim.filter(r=>r.f.startsWith(mes)),H=R.reduce((t,r)=>t+hrs(r.e,r.s),0),L=[...R].sort((a,b)=>b.f.localeCompare(a.f));
+return `<div class="c"><input type="month" value="${mes}" onchange="mes=this.value||mes;draw()"><div class="g"><div class="k"><small>Días trabajados</small><b>${R.length}</b></div><div class="k"><small>Horas trabajadas</small><b>${H.toFixed(1)} h</b></div><div class="k" style="grid-column:span 2"><small>Ingresos Jimmy Motos</small><b>${m(sum(R,()=>1))}</b></div></div></div>
+<div class="c"><b>Registrar día de trabajo</b><input type="date" id="jf" value="${today()}"><small>Hora de ingreso</small><input type="time" id="je" value="08:00"><small>Hora de salida</small><input type="time" id="js" value="17:00"><input id="jv" type="text" inputmode="numeric" placeholder="Ingreso del día"><button onclick="addJ()">Guardar</button></div>
+<div class="c">${L.length?L.map(r=>`<div class="r"><div>${new Date(r.f+"T12:00").toLocaleDateString("es-CO",{weekday:"short",day:"numeric",month:"short"})}<small>Entrada ${r.e} · Salida ${r.s} · ${hrs(r.e,r.s).toFixed(1)} h</small></div><div class="ok">${m(r.v)} <button class="s" onclick="delJ(${r.id})">✕</button></div></div>`).join(""):"<small>Aún no hay días registrados este mes.</small>"}</div>`}
+function addJ(){S.jim.push({id:uid(),f:$("jf").value||today(),e:$("je").value,s:$("js").value,v:num($("jv").value)||0});save();draw()}
+function delJ(i){S.jim=S.jim.filter(x=>x.id!=i);save();draw()}
+draw();
+// modo sin servidor (wil 2026-10-27): todo local + hábito de respaldo semanal
+function bkTxt(){const d=localStorage.getItem("ysb-bk"),n=document.getElementById("bk");
+if(!n)return;
+if(!d){n.textContent="⚠️ Nunca has hecho respaldo: toca Exportar y guarda el archivo en tus archivos";n.style.color="#b3543e";return}
+const dias=Math.floor((Date.now()-new Date(d).getTime())/864e5);
+if(dias>=7){n.textContent="⚠️ Hace "+dias+" días no haces respaldo: toca Exportar";n.style.color="#b3543e"}
+else{n.textContent="✅ Último respaldo hace "+dias+" día"+(dias==1?"":"s")}}
+bkTxt();cs("💾 Tus datos se guardan aquí, en este dispositivo");
+async function resp(){const b=new Blob([JSON.stringify(S)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="respaldo_negocio_yuly.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);try{localStorage.setItem("ysb-bk",new Date().toISOString())}catch(e){}bkTxt();cs("⬇ Respaldo descargado: guárdalo en tus archivos de iCloud o Drive")}
+function impor(){const f=(document.getElementById("imf")||{}).files;if(!f||!f[0])return;const r=new FileReader();r.onload=()=>{try{const D=JSON.parse(r.result),e=x=>!(x.regs||[]).length&&!(x.citas||[]).length&&!(x.deudas||[]).length&&!(x.metas||[]).length&&!(x.jim||[]).length;if(!D||e(D)){cs("⚠️ Ese archivo no parece un respaldo del negocio");return}S=D;S.regs=S.regs||[];S.citas=S.citas||[];S.deudas=S.deudas||[];S.metas=S.metas||[];S.jim=S.jim||[];S.svc=S.svc||DEF;save();draw();cs("✅ Datos importados: "+(D.regs||[]).length+" registros")}catch(x){cs("⚠️ El archivo no se pudo leer")}};r.readAsText(f[0])}
+</script><script>if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js").catch(function(){})</script></body></html>
